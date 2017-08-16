@@ -1,9 +1,9 @@
-FROM berenberg/web-base:7.1.7-1.13.3
+FROM berenberg/web-base:7.1.8-1.13.3
  
 COPY docker/ /
 
-ENV WORDPRESS_VERSION=4.8 \
-    WORDPRESS_SHA1=3738189a1f37a03fb9cb087160b457d7a641ccb4
+ENV WORDPRESS_VERSION=4.8.1 \
+    WORDPRESS_SHA1=5376cf41403ae26d51ca55c32666ef68b10e35a4
 
 RUN set -ex \
     # install the PHP extensions we need
@@ -12,24 +12,15 @@ RUN set -ex \
     sed \
  && apk add --no-cache --virtual .build-deps \
     autoconf \
-		libjpeg-turbo-dev \
-		libpng-dev \
-		icu-dev \
- && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
- && docker-php-ext-configure intl --enable-intl \
  && docker-php-ext-install \
-    gd \
-    intl \
     mysqli \
-    opcache \
-    pdo_mysql \
- &&	runDeps="$( \
-  		scanelf --needed --nobanner --recursive /usr/local/lib/php/extensions \
-  			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-  			| sort -u \
-  			| xargs -r apk info --installed \
-  			| sort -u \
-  	)" \
+ && runDeps="$( \
+      scanelf --needed --nobanner --recursive /usr/local/lib/php/extensions \
+        | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+        | sort -u \
+        | xargs -r apk info --installed \
+        | sort -u \
+    )" \
  && apk add  --no-cache --virtual .wordpress-phpexts-rundeps $runDeps \
  && apk del .build-deps \
     # download wordpress source
