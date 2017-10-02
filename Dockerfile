@@ -21,9 +21,6 @@ RUN set -ex \
  && sed -i -- "s/replace_logged_in_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
  && sed -i -- "s/replace_nonce_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
     # install the PHP extensions we need
- && apk add --no-cache --virtual .persistent-deps \
-    bash \
-    sed \
  && apk add --no-cache --virtual .build-deps \
     autoconf \
  && docker-php-ext-install \
@@ -41,4 +38,6 @@ RUN set -ex \
  && echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - \
  && tar -xzf wordpress.tar.gz --strip 1 -C /var/www/html \
  && rm wordpress.tar.gz \
+    # remove all preinstalled plugins and themes
+ && rm -rf /var/www/html/wp-content \
  && chown -R www-data:www-data /var/www/html
