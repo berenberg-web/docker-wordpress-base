@@ -19,7 +19,7 @@ RUN set -ex \
  && sed -i -- "s/replace_auth_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
  && sed -i -- "s/replace_secure_auth_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
  && sed -i -- "s/replace_logged_in_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
- && sed -i -- "s/replace_nonce_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php
+ && sed -i -- "s/replace_nonce_salt/`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`/g" /var/www/html/wp-config.php \
     # install the PHP extensions we need
  && apk add --no-cache --virtual .persistent-deps \
     bash \
