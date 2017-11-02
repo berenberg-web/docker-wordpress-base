@@ -1,9 +1,9 @@
-FROM berenberg/web-base:7.1.10-1.13.5
+FROM berenberg/web-base:7.1.11-1.13.6
 
 COPY docker/ /
 
-ENV WORDPRESS_VERSION=4.8.2 \
-    WORDPRESS_SHA1=a99115b3b6d6d7a1eb6c5617d4e8e704ed50f450
+ENV WORDPRESS_VERSION=4.8.3 \
+    WORDPRESS_SHA1=8efc0b9f6146e143ed419b5419d7bb8400a696fc
 
 RUN set -ex \
     # add addtional envs to php-fpm runtime
@@ -40,4 +40,5 @@ RUN set -ex \
  && rm wordpress.tar.gz \
     # remove all preinstalled plugins and themes
  && rm -rf /var/www/html/wp-content \
+ && rm -f /var/www/html/readme.html \
  && chown -R www-data:www-data /var/www/html
