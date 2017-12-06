@@ -1,9 +1,9 @@
-FROM berenberg/web-base:7.1.11-1.13.6
+FROM berenberg/web-base:7.1.12-1.13.7
 
 COPY docker/ /
 
-ENV WORDPRESS_VERSION=4.8.3 \
-    WORDPRESS_SHA1=8efc0b9f6146e143ed419b5419d7bb8400a696fc
+ENV WORDPRESS_VERSION=4.9.1 \
+    WORDPRESS_SHA1=892d2c23b9d458ec3d44de59b753adb41012e903
 
 RUN set -ex \
     # add addtional envs to php-fpm runtime
