@@ -1,4 +1,4 @@
-FROM berenberg/web-base:7.1.12-1.13.7
+FROM berenberg/web-base:7.2.1-1.13.8
 
 COPY docker/ /
 
