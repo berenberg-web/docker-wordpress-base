@@ -1,4 +1,4 @@
-FROM berenberg/web-base:7.2.2-fpm-nginx1.13.8
+FROM berenberg/web-base:7.2.3-fpm-nginx1.13.9
 
 COPY docker/ /
 
